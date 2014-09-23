@@ -26,7 +26,7 @@
   .control-group
     = f.label :person_id, :class => 'control-label'
     .controls
-      = f.text_field :person_id, :class => 'text_field'
+      = f.collection_select :person_id, Person.order(:nickname), :id, :nickname, include_blank: true
   .form-actions
-    = f.submit nil, :class => 'btn btn-primary'
+    = f.submit 'Save Story', :class => 'btn btn-primary'
     = link_to t('.cancel', :default => t("helpers.links.cancel")), testemonies_path, :class => 'btn'

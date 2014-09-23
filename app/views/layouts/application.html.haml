@@ -29,24 +29,17 @@
           %a.brand(href="#") SingaporeStories
           .container.nav-collapse
             %ul.nav
-              %li= link_to "Link 1", "/path1"
-              %li= link_to "Link 2", "/path2"
-              %li= link_to "Link 3", "/path3"
+              %li= link_to "Historical Map", "/"
+              %li= link_to "People", "#{people_path}"
+              %li= link_to "Testemonies",  "#{testemonies_path}"
 
     .container
-
       .row
         .span9
           = bootstrap_flash
+      .row
+        .span9
           = yield
-        .span3
-          .well.sidebar-nav
-            %h3 Sidebar
-            %ul.nav.nav-list
-              %li.nav-header Sidebar
-              %li= link_to "Link 1", "/path1"
-              %li= link_to "Link 2", "/path2"
-              %li= link_to "Link 3", "/path3"
-    
+
       %footer
-        %p &copy; Company 2014
+        %p &copy; ImagoSingapur 2014

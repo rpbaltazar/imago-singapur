@@ -69,6 +69,6 @@ class TestemoniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def testemony_params
-      params.require(:testemony).permit(:lat, :lon, :story_date, :memory, :audio_url, :video_url)
+      params.require(:testemony).permit(:lat, :lon, :story_date, :memory, :audio_url, :video_url, :person_id)
     end
 end

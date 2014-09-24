@@ -10,6 +10,7 @@
       %th= model_class.human_attribute_name(:story_date)
       %th= model_class.human_attribute_name(:memory)
       %th= model_class.human_attribute_name(:audio_url)
+      %th= model_class.human_attribute_name(:image_url)
       %th= model_class.human_attribute_name(:video_url)
       %th= model_class.human_attribute_name(:person_id)
       %th= model_class.human_attribute_name(:created_at)
@@ -23,6 +24,7 @@
         %td= testemony.story_date
         %td= testemony.memory
         %td= testemony.audio_url
+        %td= testemony.image_url
         %td= testemony.video_url
         %td= testemony.person_id
         %td=l testemony.created_at

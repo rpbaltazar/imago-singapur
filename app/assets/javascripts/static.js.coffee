@@ -3,29 +3,38 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 class MapManager
-  constructor: (accessToken) ->
+  constructor: (accessToken, id) ->
     L.mapbox.accessToken = accessToken
     @_layers = {
-      1993: 'rpbaltazar.jj3on91a'
-      2000: 'rpbaltazar.jj3p6ka2'
+      1993: 'rpbaltazar.singapore-1993'
+      2000: 'rpbaltazar.singapore-2000'
     }
 
-  loadMap: (id) ->
+    @currentLayerYear = 0
+    @elId = id
+
+    @loadMap()
+
+  loadMap: ->
     self = @
-    @map = L.mapbox.map(id).setView(['1.3000', '103.800'], 13)
+    @map = L.mapbox.map(@elId, 'rpbaltazar.jj789eo9').setView(['1.3000', '103.860'], 11)
 
   loadYearLayer: (year) ->
     self = @
-    layer = self._layers[year]
-    return unless layer?
-    L.mapbox.tileLayer(layer).addTo(self.map)
+    return if self.currentLayerYear == year
+    layerId = self._layers[year]
+    return unless layerId?
+    currentLayer = L.mapbox.tileLayer self._layers[self.currentLayerYear]
+    if self.map.hasLayer currentLayer
+      self.map.removeLayer currentLayer
+
+    L.mapbox.tileLayer(layerId).addTo(self.map)
+    self.currentLayerYear = year
 
 @ImagoSingapur = {}
 
 ready = ->
-  ImagoSingapur._mapManager = new MapManager('pk.eyJ1IjoicnBiYWx0YXphciIsImEiOiJEQlJyLVVJIn0.yaCOoWv9RzeJ8ZlkfOmoxg')
-  ImagoSingapur._mapManager.loadMap('imago-singapur-map')
-  ImagoSingapur._mapManager.loadYearLayer(1993)
+  ImagoSingapur._mapManager = new MapManager('pk.eyJ1IjoicnBiYWx0YXphciIsImEiOiJEQlJyLVVJIn0.yaCOoWv9RzeJ8ZlkfOmoxg', 'imago-singapur-map')
 
 
 $(document).ready(ready)

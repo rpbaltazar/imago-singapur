@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require lodash
 //= require imago_singapur
 //= require_tree .
 

@@ -10,6 +10,7 @@ class MapManager
 
     @currentLayerYear = 0
     @elId = id
+    @currentMarkers = []
 
     @loadMap()
 
@@ -28,5 +29,37 @@ class MapManager
 
     L.mapbox.tileLayer(layerId).addTo(self.map)
     self.currentLayerYear = year
+
+  #eventList should follow the format
+  #eventList = [
+  #  {
+  #    date: ...,
+  #    location:
+  #     {
+  #       latitude:
+  #       longitude:
+  #     },
+  #    memory: ...,
+  #    tags: ...,
+  #    visibility: own/acquitance/others,
+  #    image_url: ...,
+  #  }
+  #]
+  createMapMarkers: (eventList) ->
+    self = @
+    _.each eventList, (evt) ->
+      tempMarker =
+        L.marker(
+          new L.LatLng(evt.location.latitude, evt.location.longitude)
+          {
+            icon: L.mapbox.marker.icon({'marker-color': 'ff00aa'})
+          }
+        )
+        .bindPopup evt.memory
+
+      self.currentMarkers.push tempMarker
+      tempMarker.addTo(self.map)
+
+
 
 @ImagoSingapur.MapManager = MapManager

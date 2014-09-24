@@ -1,8 +1,9 @@
 SingaporeStories::Application.routes.draw do
+
+  get 'people/:id/testimonies' => 'people#testimonies', as: :mytestimonies
+
   resources :people
-
   resources :tags
-
   resources :testemonies
 
   # The priority is based upon order of creation: first created -> highest priority.

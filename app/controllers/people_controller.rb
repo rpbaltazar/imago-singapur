@@ -1,5 +1,5 @@
 class PeopleController < ApplicationController
-  before_action :set_person, only: [:show, :edit, :update, :destroy]
+  before_action :set_person, only: [:show, :edit, :update, :destroy, :testimonies]
 
   # GET /people
   # GET /people.json
@@ -61,6 +61,11 @@ class PeopleController < ApplicationController
     end
   end
 
+  def testimonies
+    tlist = @person.testemonies
+    render json: (build_testimonies(tlist))
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_person
@@ -70,5 +75,21 @@ class PeopleController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
       params.require(:person).permit(:nickname, :arrival_date, :sex, :exit_date, :birthday)
+    end
+
+    def build_testimonies t_list
+      final_struct = []
+      t_list.each do |t|
+        tmp_struct = {}
+        tmp_struct[:date] = t.story_date
+        tmp_struct[:location] = {
+          latitude: t.lat,
+          longitude: t.lon
+        }
+        tmp_struct[:memory] = t.memory
+        tmp_struct[:image_url] = t.image_url
+        final_struct << tmp_struct
+      end
+      final_struct
     end
 end

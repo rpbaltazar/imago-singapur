@@ -23,6 +23,10 @@
   %br
   = @testemony.audio_url
 %p
+  %strong= model_class.human_attribute_name(:image_url) + ':'
+  %br
+  = @testemony.image_url
+%p
   %strong= model_class.human_attribute_name(:video_url) + ':'
   %br
   = @testemony.video_url

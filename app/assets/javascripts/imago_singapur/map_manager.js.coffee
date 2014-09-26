@@ -66,7 +66,7 @@ class MapManager
             'marker-color': 'ff00aa',
             'marker-size': 'small',
             'maker-symbol': 'star',
-            url: 'http://google.com'
+            url: "/api/testimonies/#{evt.id}"
           ,
           geometry:
             type: 'Point',
@@ -79,9 +79,15 @@ class MapManager
 
     mLayer.setGeoJSON geojson
     mLayer.on 'click', (e) ->
-      $.get e.layer.feature.properties.url, ( data ) ->
-        console.log 'got you'
-      , (err) ->
-        console.log 'problemo'
+      $(self).trigger 'imago:click', e
+
+  travelInTime: (event) ->
+    self = @
+    year = moment(event.story_date).year()
+
+    latitude = event.latitude
+    longitude = event.longitude
+
+    @loadYearLayer year
 
 @ImagoSingapur.MapManager = MapManager

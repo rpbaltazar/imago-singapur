@@ -7,7 +7,7 @@ ready = ->
   ImagoSingapur._mapManager = new ImagoSingapur.MapManager('pk.eyJ1IjoicnBiYWx0YXphciIsImEiOiJEQlJyLVVJIn0.yaCOoWv9RzeJ8ZlkfOmoxg', 'imago-singapur-map')
 
 $.get "people/#{ImagoSingapur._userId}/testimonies", ( data ) ->
-  ImagoSingapur._mapManager.createMapMarkers data
+  ImagoSingapur._mapManager.createMapMarkersLayer data
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

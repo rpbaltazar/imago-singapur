@@ -45,21 +45,43 @@ class MapManager
   #    image_url: ...,
   #  }
   #]
-  createMapMarkers: (eventList) ->
+  createMapMarkersLayer: (eventList) ->
     self = @
+
+    #TODO: check if layer already exists
+    #if yes, clear/delete before adding
+    #a new one
+    mLayer = L.mapbox.featureLayer().addTo(self.map)
+
+    geojson =
+      type: 'FeatureCollection'
+      features: []
+
     _.each eventList, (evt) ->
-      tempMarker =
-        L.marker(
-          new L.LatLng(evt.location.latitude, evt.location.longitude)
-          {
-            icon: L.mapbox.marker.icon({'marker-color': 'ff00aa'})
-          }
-        )
-        .bindPopup evt.memory
+      geojson.features.push(
+        {
+          type: 'Feature',
+          properties:
+            title: evt.memory,
+            'marker-color': 'ff00aa',
+            'marker-size': 'small',
+            'maker-symbol': 'star',
+            url: 'http://google.com'
+          ,
+          geometry:
+            type: 'Point',
+            coordinates: [
+              evt.location.longitude
+              evt.location.latitude
+            ]
+        }
+      )
 
-      self.currentMarkers.push tempMarker
-      tempMarker.addTo(self.map)
-
-
+    mLayer.setGeoJSON geojson
+    mLayer.on 'click', (e) ->
+      $.get e.layer.feature.properties.url, ( data ) ->
+        console.log 'got you'
+      , (err) ->
+        console.log 'problemo'
 
 @ImagoSingapur.MapManager = MapManager

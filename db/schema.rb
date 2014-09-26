@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926134316) do
+ActiveRecord::Schema.define(version: 20140926141537) do
 
   create_table "people", force: true do |t|
     t.string   "nickname"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20140926134316) do
     t.datetime "updated_at"
   end
 
-  create_table "testemonies", force: true do |t|
+  create_table "testimonies", force: true do |t|
     t.float    "lat"
     t.float    "lon"
     t.datetime "story_date"
@@ -52,6 +52,6 @@ ActiveRecord::Schema.define(version: 20140926134316) do
     t.string   "image_url"
   end
 
-  add_index "testemonies", ["person_id"], name: "index_testemonies_on_person_id"
+  add_index "testimonies", ["person_id"], name: "index_testimonies_on_person_id"
 
 end

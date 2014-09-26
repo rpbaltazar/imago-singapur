@@ -81,6 +81,7 @@ class PeopleController < ApplicationController
       final_struct = []
       t_list.each do |t|
         tmp_struct = {}
+        tmp_struct[:id] = t.id
         tmp_struct[:date] = t.story_date
         tmp_struct[:location] = {
           latitude: t.lat,

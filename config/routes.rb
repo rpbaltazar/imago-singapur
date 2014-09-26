@@ -2,6 +2,10 @@ SingaporeStories::Application.routes.draw do
 
   get 'people/:id/testimonies' => 'people#testimonies', as: :mytestimonies
 
+  namespace :api, defaults: {format: 'json'} do
+    resources :testimonies
+  end
+
   resources :people
   resources :tags
   resources :testemonies

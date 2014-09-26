@@ -4,6 +4,7 @@ class MapManager
   constructor: (accessToken, id) ->
     L.mapbox.accessToken = accessToken
     @_layers = {
+      #NOTE: indexmap layers, max zoom 13
       1993: 'rpbaltazar.singapore-1993'
       2000: 'rpbaltazar.singapore-2000'
     }
@@ -85,9 +86,13 @@ class MapManager
     self = @
     year = moment(event.story_date).year()
 
-    latitude = event.latitude
-    longitude = event.longitude
-
     @loadYearLayer year
+    @zoomAndCenter event
+
+  zoomAndCenter: (event) ->
+    latlng = L.latLng event.lat, event.lon
+    @map.fitBounds L.latLngBounds(latlng, latlng),
+      {animate: true,
+      maxZoom: 17}
 
 @ImagoSingapur.MapManager = MapManager

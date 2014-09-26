@@ -1,41 +1,41 @@
-- model_class = Testemony
+- model_class = Testimony
 .page-header
   %h1=t '.title', :default => model_class.model_name.human.titleize
 
 %p
   %strong= model_class.human_attribute_name(:lat) + ':'
   %br
-  = @testemony.lat
+  = @testimony.lat
 %p
   %strong= model_class.human_attribute_name(:lon) + ':'
   %br
-  = @testemony.lon
+  = @testimony.lon
 %p
   %strong= model_class.human_attribute_name(:story_date) + ':'
   %br
-  = @testemony.story_date
+  = @testimony.story_date
 %p
   %strong= model_class.human_attribute_name(:memory) + ':'
   %br
-  = @testemony.memory
+  = @testimony.memory
 %p
   %strong= model_class.human_attribute_name(:audio_url) + ':'
   %br
-  = @testemony.audio_url
+  = @testimony.audio_url
 %p
   %strong= model_class.human_attribute_name(:image_url) + ':'
   %br
-  = @testemony.image_url
+  = @testimony.image_url
 %p
   %strong= model_class.human_attribute_name(:video_url) + ':'
   %br
-  = @testemony.video_url
+  = @testimony.video_url
 %p
   %strong= model_class.human_attribute_name(:person_id) + ':'
   %br
-  = @testemony.person_id
+  = @testimony.person_id
 
 .form-actions
-  = link_to t('.back', :default => t("helpers.links.back")), testemonies_path, :class => 'btn'
-  = link_to t('.edit', :default => t("helpers.links.edit")), edit_testemony_path(@testemony), :class => 'btn'
-  = link_to t('.destroy', :default => t("helpers.links.destroy")), testemony_path(@testemony), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'
+  = link_to t('.back', :default => t("helpers.links.back")), testimonies_path, :class => 'btn'
+  = link_to t('.edit', :default => t("helpers.links.edit")), edit_testimony_path(@testimony), :class => 'btn'
+  = link_to t('.destroy', :default => t("helpers.links.destroy")), testimony_path(@testimony), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'

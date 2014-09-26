@@ -1,3 +1,3 @@
 class Person < ActiveRecord::Base
-  has_many :testemonies
+  has_many :testimonies
 end

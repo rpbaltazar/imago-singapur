@@ -1,5 +1,5 @@
 class PeopleController < ApplicationController
-  before_action :set_person, only: [:show, :edit, :update, :destroy, :testimonies]
+  before_action :set_person, only: [:show, :edit, :update, :destroy, :user_testimonies]
 
   # GET /people
   # GET /people.json
@@ -61,8 +61,8 @@ class PeopleController < ApplicationController
     end
   end
 
-  def testimonies
-    tlist = @person.testemonies
+  def user_testimonies
+    tlist = @person.testimonies
     render json: (build_testimonies(tlist))
   end
 

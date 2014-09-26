@@ -1,6 +1,6 @@
 SingaporeStories::Application.routes.draw do
 
-  get 'people/:id/testimonies' => 'people#testimonies', as: :mytestimonies
+  get 'people/:id/testimonies' => 'people#user_testimonies', as: :mytestimonies
 
   namespace :api, defaults: {format: 'json'} do
     resources :testimonies
@@ -8,7 +8,9 @@ SingaporeStories::Application.routes.draw do
 
   resources :people
   resources :tags
-  resources :testemonies
+  resources :testimonies
+
+  devise_for :people
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

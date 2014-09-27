@@ -32,8 +32,14 @@
             %ul.nav
               %li= link_to "Historical Map", "/"
               %li= link_to "People", "#{people_path}"
-              %li= link_to "Testimonies",  "#{testimonies_path}"
+              %li= link_to "Testimonies", "#{testimonies_path}"
+            %ul.navbar-right
+              -# %li= "Logged in as #{current_user.nickname}"
+              %li= link_to "Profile", "#"
+              %li.navbar-link= link_to "Logout", "#{destroy_user_session_path}", :method => :delete
 
+              %li.navbar-link= link_to "Sign up", new_user_registration_path
+              %li.navbar-link= link_to "Login", new_user_session_path
     .container
       .row
         .span9

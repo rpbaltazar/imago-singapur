@@ -10,13 +10,13 @@ SingaporeStories::Application.routes.draw do
   resources :tags
   resources :testimonies
 
-  devise_for :people
+  devise_for :users, class_name: 'Person'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'static#home'
+  # root 'static#home'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

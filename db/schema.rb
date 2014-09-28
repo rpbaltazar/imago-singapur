@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926141537) do
+ActiveRecord::Schema.define(version: 20140927080350) do
 
   create_table "people", force: true do |t|
     t.string   "nickname"
@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(version: 20140926141537) do
     t.integer  "sign_in_count",                      default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.datetime "current_sign_in_ip"
-    t.datetime "last_sign_in_ip"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
   end
 
   create_table "tags", force: true do |t|

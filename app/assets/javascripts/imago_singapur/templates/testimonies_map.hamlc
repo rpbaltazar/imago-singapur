@@ -1,3 +1,4 @@
-%h4#constellation-switch Constelation visible: OFF
+%h4#constellation-switch Constelation visible:
+  %span #{@constellationViz}
 
 #testimonies-map

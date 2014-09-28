@@ -22,12 +22,11 @@ class ImagoSingapur.TestimonyMapView extends Backbone.View
 
   renderMap: ->
     @mapManager.loadMap()
-    # @mapManager.createMapMarkersLayer(@collection.toJSON())
     @mapManager.createLayers(@collection.toJSON())
 
   add: (model) ->
-    # @mapManager.createMapMarkersLayer(@collection.toJSON())
-    @mapManager.createLayers(@collection.toJSON())
+    @mapManager.addEventToLayers(model.toJSON())
+    # @mapManager.createLayers(@collection.toJSON())
 
   toggleConstellation: ->
     @mapManager.toggleConstellation()

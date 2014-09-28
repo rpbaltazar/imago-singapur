@@ -37,6 +37,7 @@
           .col-md-11#main-container
             = yield
         - else
-          .col-md-12#main-container
+          .col-md-12#container
+            = yield
 
   %script{:src=>"https://api.tiles.mapbox.com/mapbox.js/v2.1.1/mapbox.js"}

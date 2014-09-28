@@ -2,7 +2,6 @@
 @App =
   Collections: {}
 
-
 @ImagoSingapur = {}
 
 $(document).ready ->

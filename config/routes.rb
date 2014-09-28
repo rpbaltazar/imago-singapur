@@ -16,6 +16,7 @@ SingaporeStories::Application.routes.draw do
   devise_for :people
   devise_scope :person do
     get '/sign-in' => "devise/sessions#new", :as => :login
+    get '/sign-out' => "devise/sessions#destroy", :as => :logout
   end
 
   # Example of regular route:

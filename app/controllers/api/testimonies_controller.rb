@@ -7,7 +7,7 @@ module Api
     end
 
     def show
-      testimony = Testemony.find params[:id]
+      testimony = Testimony.find params[:id]
       render :json => testimony.to_json
     end
 

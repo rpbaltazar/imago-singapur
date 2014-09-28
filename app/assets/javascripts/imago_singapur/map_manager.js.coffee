@@ -50,6 +50,8 @@ class ImagoSingapur.MapManager
     #a new one
     mLayer = L.mapbox.featureLayer().addTo(self.map)
 
+    debugger
+
     geojson =
       type: 'FeatureCollection'
       features: []

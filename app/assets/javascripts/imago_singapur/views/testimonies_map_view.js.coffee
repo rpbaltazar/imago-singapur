@@ -4,7 +4,8 @@ class ImagoSingapur.TestimonyMapView extends Backbone.View
   template: JST['imago_singapur/templates/testimonies_map']
   mapManager: {}
 
-  initialize: ->
+  initialize: (options) ->
+    @collection = options?.collection
     _.bindAll @, 'render', 'add', 'renderMap'
     @collection.bind 'reset', @render
     @collection.bind 'add', @add
@@ -17,9 +18,8 @@ class ImagoSingapur.TestimonyMapView extends Backbone.View
 
   renderMap: ->
     @mapManager.loadMap()
+    @mapManager.createMapMarkersLayer(@collection.toJSON())
 
   add: (model) ->
-    # self = @
-    # view = new ImagoSingapur.TestimonyGridCellView({model: model})
-    # $(self.el).append view.render().el
+    @mapManager.createMapMarkersLayer(@collection.toJSON())
 

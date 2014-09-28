@@ -9,7 +9,7 @@ class ImagoSingapur.MapManager
 
     @currentLayerYear = 0
     @elId = id
-    @currentMarkers = []
+    @currentMarkerLayer
 
   loadMap: ->
     self = @
@@ -27,30 +27,15 @@ class ImagoSingapur.MapManager
     L.mapbox.tileLayer(layerId).addTo(self.map)
     self.currentLayerYear = year
 
-  #eventList should follow the format
-  #eventList = [
-  #  {
-  #    date: ...,
-  #    location:
-  #     {
-  #       latitude:
-  #       longitude:
-  #     },
-  #    memory: ...,
-  #    tags: ...,
-  #    visibility: own/acquitance/others,
-  #    image_url: ...,
-  #  }
-  #]
   createMapMarkersLayer: (eventList) ->
     self = @
 
-    #TODO: check if layer already exists
-    #if yes, clear/delete before adding
-    #a new one
-    mLayer = L.mapbox.featureLayer().addTo(self.map)
+    if @currentMarkerLayer?
+      @map.removeLayer @currentMarkerLayer
 
-    debugger
+    mLayer = L.mapbox.featureLayer()
+    mLayer.addTo(self.map)
+    @currentMarkerLayer = mLayer
 
     geojson =
       type: 'FeatureCollection'
@@ -70,8 +55,8 @@ class ImagoSingapur.MapManager
           geometry:
             type: 'Point',
             coordinates: [
-              evt.location.longitude
-              evt.location.latitude
+              evt.lon
+              evt.lat
             ]
         }
       )

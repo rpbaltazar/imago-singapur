@@ -12,7 +12,7 @@ class ImagoSingapur.Router extends Backbone.Router
     @_renderMain view
 
   renderMapView: ->
-    unless App.Collections.testimonies?.count
+    unless App.Collections.testimonies?.length
       App.Collections.testimonies = new ImagoSingapur.TestimoniesCollection()
       App.Collections.testimonies.fetch()
 

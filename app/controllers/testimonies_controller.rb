@@ -1,10 +1,17 @@
 class TestimoniesController < ApplicationController
   before_action :set_testimony, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /testimonies
   # GET /testimonies.json
   def index
-    @testimonies = Testimony.all
+    @person = Person.find 1
+    @testimonies = @person.testimonies
+    if params[:view] == "grid"
+      render :index_map
+    else
+      render :index_grid
+    end
   end
 
   # GET /testimonies/1

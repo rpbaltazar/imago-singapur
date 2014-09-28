@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.1.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.4'
+gem 'rails', '~> 4.1'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', :group => :development
@@ -17,7 +17,7 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 
-gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap-rails', '>= 3.0.0'
 gem 'haml-rails'
 
 gem 'devise'

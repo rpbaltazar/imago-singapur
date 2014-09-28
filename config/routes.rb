@@ -1,6 +1,7 @@
 SingaporeStories::Application.routes.draw do
 
-  get 'people/:id/testimonies' => 'people#user_testimonies', as: :mytestimonies
+  # You can have the root of your site routed with "root"
+  root 'testimonies#index'
 
   namespace :api, defaults: {format: 'json'} do
     resources :testimonies
@@ -10,13 +11,12 @@ SingaporeStories::Application.routes.draw do
   resources :tags
   resources :testimonies
 
-  devise_for :users, class_name: 'Person'
+  get 'people/:id/testimonies' => 'people#user_testimonies', as: :mytestimonies
 
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  # root 'static#home'
+  devise_for :people
+  devise_scope :person do
+    get '/sign-in' => "devise/sessions#new", :as => :login
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

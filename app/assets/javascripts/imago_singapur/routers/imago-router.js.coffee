@@ -3,7 +3,6 @@ class ImagoSingapur.Router extends Backbone.Router
     "": "renderGridView" #default route
     "testimonies/map": "renderMapView"
     "testimonies/grid": "renderGridView"
-  mainView: ''
 
   renderGridView: ->
     App.Collections.testimonies = new ImagoSingapur.TestimoniesCollection()
@@ -21,7 +20,7 @@ class ImagoSingapur.Router extends Backbone.Router
 
   _renderMain: (view, callback) ->
     if @mainView?
-      $("#"+@mainView.id).remove()
+      @mainView.remove()
 
     @mainView = view
     $('#main-container').append(view.render().el)

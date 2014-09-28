@@ -1,8 +1,12 @@
 class ImagoSingapur.TestimonyMapView extends Backbone.View
 
-  id: "testimonies-map"
   template: JST['imago_singapur/templates/testimonies_map']
+  $el: $("#main-container")
+  mapId: "testimonies-map"
   mapManager: {}
+
+  events:
+    'click #constellation-switch' : 'toggleConstellation'
 
   initialize: (options) ->
     @collection = options?.collection
@@ -13,13 +17,18 @@ class ImagoSingapur.TestimonyMapView extends Backbone.View
   render: ->
     self = @
     $(@el).html( @template(collection: self.collection.toJSON()) )
-    @mapManager = new ImagoSingapur.MapManager 'pk.eyJ1IjoicnBiYWx0YXphciIsImEiOiJEQlJyLVVJIn0.yaCOoWv9RzeJ8ZlkfOmoxg', @el
+    @mapManager = new ImagoSingapur.MapManager 'pk.eyJ1IjoicnBiYWx0YXphciIsImEiOiJEQlJyLVVJIn0.yaCOoWv9RzeJ8ZlkfOmoxg', @mapId
     @
 
   renderMap: ->
     @mapManager.loadMap()
-    @mapManager.createMapMarkersLayer(@collection.toJSON())
+    # @mapManager.createMapMarkersLayer(@collection.toJSON())
+    @mapManager.createLayers(@collection.toJSON())
 
   add: (model) ->
-    @mapManager.createMapMarkersLayer(@collection.toJSON())
+    # @mapManager.createMapMarkersLayer(@collection.toJSON())
+    @mapManager.createLayers(@collection.toJSON())
+
+  toggleConstellation: ->
+    @mapManager.toggleConstellation()
 

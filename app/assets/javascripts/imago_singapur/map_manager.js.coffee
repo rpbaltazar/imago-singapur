@@ -15,48 +15,67 @@ class ImagoSingapur.MapManager
     @constellation
 
     @_constellationConfig = {
-      opacity: 1,
+      opacity: 0.7,
       color: "#fff",
       weight: 2,
     }
-
-    @blackOverlay
 
   loadMap: ->
     self = @
     @map = L.mapbox.map(@elId, 'rpbaltazar.jj789eo9').setView(['1.3500', '103.810'], 12)
 
-    # @_layers["current"].addTo @map
-    # L.control.layers(@_layers).addTo @map
     @showBlackLayer false
 
   toggleConstellation: ->
     if !@map.hasLayer @constellation
       @showBlackLayer true
-      @constellation.addTo(@map)
+      @showMarkersLayer false
+      @constellation.addTo @map
+      @constellationDotsLayer.addTo @map
     else
+      @showMarkersLayer true
       @showBlackLayer false
       @map.removeLayer @constellation
+      @map.removeLayer @constellationDotsLayer
 
   showBlackLayer: (visible) ->
     @map.featureLayer.setFilter (fl) ->
       visible or fl.geometry.type != 'Polygon'
 
-  addEventToLayers: (event) ->
-    geoJson = @currentMarkerLayer.getGeoJSON()
-    geoJson.features.push @_getMarkerFeature(event)
-    @currentMarkerLayer.setGeoJSON geoJson
+  showMarkersLayer: (visible) ->
+    if visible
+      @currentMarkerLayer.addTo @map
+    else
+      @map.removeLayer @currentMarkerLayer
 
-    @rebuildLine geoJson.features
+  addEventToLayers: (event) ->
+    geoJsonMarkers = @currentMarkerLayer.getGeoJSON()
+    geoJsonMarkers.features.push @_getMarkerFeature(event)
+    @currentMarkerLayer.setGeoJSON geoJsonMarkers
+
+    @rebuildLine geoJsonMarkers.features
+
+    geoJsonData = @constellationDotsLayer.getGeoJSON()
+    geoJsonData.features.push @_getConstellationFeature(event)
+    geoJsonFinal = L.geoJson(
+      geoJsonData,
+      {
+        pointToLayer: (feature, latlng) ->
+          L.circleMarker latlng, {
+            radius: 2
+            color: '#fff'
+            opacity: 1
+            fillColor: '#fff'
+            fillOpacity: 1
+          }
+      }
+    )
+    @constellationDotsLayer.addLayer geoJsonFinal
 
   rebuildLine: (features) ->
     constellationLine= []
-    console.log features
-
     sorted = _.sortBy features, (f) ->
       moment f.properties?.date?
-
-    console.log sorted
 
     _.each sorted, (f) ->
       constellationLine.push (L.latLng f.geometry.coordinates[1], f.geometry.coordinates[0])
@@ -74,6 +93,7 @@ class ImagoSingapur.MapManager
     @currentMarkerLayer = mLayer
 
     markersLayerGeoJSON =
+    constellationLayerGeoJSON =
       type: 'FeatureCollection',
       features: []
 
@@ -81,9 +101,22 @@ class ImagoSingapur.MapManager
 
     _.each sortedEventList, (evt) ->
       markersLayerGeoJSON.features.push self._getMarkerFeature(evt)
+      constellationLayerGeoJSON.features.push self._getConstellationFeature(evt)
       constellationLine.push L.latLng evt.lat, evt.lon
 
     @constellation = L.polyline constellationLine, @_constellationConfig
+
+    geoJson = L.geoJson(
+      constellationLayerGeoJSON,
+      {
+        pointToLayer: (feature, latlng) ->
+          console.log feature, latlng
+          L.circleMarker latlng, {radius: feature.properties.count}
+      }
+    )
+
+    @constellationDotsLayer = L.mapbox.featureLayer()
+    @constellationDotsLayer.setGeoJSON geoJson.toGeoJSON()
 
     mLayer.setGeoJSON markersLayerGeoJSON
     mLayer.on 'click', (e) ->
@@ -92,6 +125,20 @@ class ImagoSingapur.MapManager
           self.travelInTime(data)
         .error (err) ->
           console.log 'problemo'
+
+  _getConstellationFeature: (evt) ->
+    feature = {
+      type: 'Feature'
+      properties:
+        count: 10
+      geometry:
+        type: 'Point',
+        coordinates: [
+          evt.lon
+          evt.lat
+        ]
+    }
+    feature
 
   _getMarkerFeature: (evt) ->
     feature = {

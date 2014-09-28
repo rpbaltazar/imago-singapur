@@ -1,0 +1,4 @@
+- _.each @collection, (model) ->
+  .col-xs-6.col-md-3
+    .thumbnail
+      %img(src="#{model.image_url}")

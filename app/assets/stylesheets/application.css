@@ -32,7 +32,7 @@
   display: table-cell;
   background: #2c3e50;
   float: none;
-  width: 30px;
+  width: 70px;
   padding: 6px;
   vertical-align: top;
 }
@@ -41,7 +41,22 @@
   margin-top: 0;
 }
 
+#navigation a .fa {
+  font-size: 2em;
+}
+
+#navigation ul{
+  padding: 0;
+  margin-left: 16px;
+}
+
+#navigation ul li{
+  list-style-type: none;
+  padding: 2px;
+}
+
 #main-container {
   float: none;
   min-height: 960px;
+  margin-top: 20px;
 }

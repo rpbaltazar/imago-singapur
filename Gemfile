@@ -19,6 +19,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 gem 'twitter-bootstrap-rails', '>= 3.0.0'
 gem 'haml-rails'
+gem 'haml_coffee_assets', git: "https://github.com/netzpirat/haml_coffee_assets"
 
 gem 'devise'
 
@@ -33,6 +34,7 @@ gem 'jquery-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
+
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

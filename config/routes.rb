@@ -1,7 +1,7 @@
 SingaporeStories::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
-  root 'testimonies#index'
+  root 'static#home'
 
   namespace :api, defaults: {format: 'json'} do
     resources :testimonies

@@ -24,9 +24,16 @@
       .full-column
         - if !current_person.nil?
           .col-md-1#navigation
-            = link_to "H", "/"
-            = link_to "P", "#{people_path}"
-            = link_to "T", "#{testimonies_path}"
+            %ul
+              %li
+                %a(href="#{person_path(current_person)}")
+                  %i.fa.fa-user
+              %li
+                %a(href="/#/testimonies/grid")
+                  %i.fa.fa-th
+              %li
+                %a(href="/#/testimonies/map")
+                  %i.fa.fa-map-marker
           .col-md-11#main-container
             = yield
         - else

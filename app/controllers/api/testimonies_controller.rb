@@ -2,7 +2,8 @@ module Api
   class TestimoniesController < ApplicationController
 
     def index
-      p "#{params}"
+      testimonies = Testimony.all
+      render json: testimonies.to_json
     end
 
     def show

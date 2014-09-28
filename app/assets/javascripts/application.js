@@ -13,8 +13,15 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require hamlcoffee
 //= require lodash
 //= require moment
-//= require imago_singapur
+//= require backbone
+//= require imago-singapur
+//= require_tree ./imago_singapur/models
+//= require_tree ./imago_singapur/collections
+//= require_tree ./imago_singapur/templates
+//= require_tree ./imago_singapur/views
+//= require_tree ./imago_singapur/routers
 //= require_tree .
 

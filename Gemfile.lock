@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/netzpirat/haml_coffee_assets
+  revision: a3c2951eca005d4fcce4837b9a97a139fc022c66
+  specs:
+    haml_coffee_assets (1.16.0)
+      coffee-script (~> 2.0)
+      sprockets (~> 2.0)
+      tilt (~> 1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -136,6 +145,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   haml-rails
+  haml_coffee_assets!
   jbuilder (~> 1.2)
   jquery-rails
   pg

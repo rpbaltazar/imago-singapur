@@ -1,6 +1,4 @@
-@ImagoSingapur ||= {}
-
-class MapManager
+class ImagoSingapur.MapManager
   constructor: (accessToken, id) ->
     L.mapbox.accessToken = accessToken
     @_layers = {
@@ -12,8 +10,6 @@ class MapManager
     @currentLayerYear = 0
     @elId = id
     @currentMarkers = []
-
-    @loadMap()
 
   loadMap: ->
     self = @
@@ -95,4 +91,3 @@ class MapManager
       {animate: true,
       maxZoom: 17}
 
-@ImagoSingapur.MapManager = MapManager

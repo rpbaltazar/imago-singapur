@@ -20,35 +20,16 @@
 
 
   %body
-    .navbar.navbar-fixed-top
-      .navbar-inner
-        .container
-          %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          %a.brand(href="#") SingaporeStories
-          .container.nav-collapse
-            %ul.nav
-              %li= link_to "Historical Map", "/"
-              %li= link_to "People", "#{people_path}"
-              %li= link_to "Testimonies", "#{testimonies_path}"
-            %ul.navbar-right
-              -# %li= "Logged in as #{current_user.nickname}"
-              %li= link_to "Profile", "#"
-              %li.navbar-link= link_to "Logout", "#{destroy_user_session_path}", :method => :delete
-
-              %li.navbar-link= link_to "Sign up", new_user_registration_path
-              %li.navbar-link= link_to "Login", new_user_session_path
-    .container
-      .row
-        .span9
-          = bootstrap_flash
-      .row
-        .span9
-          = yield
-
-      %footer
-        %p &copy; ImagoSingapur 2014
+    #wrapper
+      .full-column
+        - if !current_person.nil?
+          .col-md-1#navigation
+            = link_to "H", "/"
+            = link_to "P", "#{people_path}"
+            = link_to "T", "#{testimonies_path}"
+          .col-md-11#main-container
+            = yield
+        - else
+          .col-md-12#main-container
 
   %script{:src=>"https://api.tiles.mapbox.com/mapbox.js/v2.1.1/mapbox.js"}

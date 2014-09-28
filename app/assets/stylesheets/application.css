@@ -55,7 +55,7 @@
   padding: 2px;
 }
 
-#main-container {
+#main-container, #container{
   float: none;
   min-height: 960px;
   margin-top: 20px;

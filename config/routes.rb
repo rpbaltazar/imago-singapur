@@ -7,10 +7,6 @@ SingaporeStories::Application.routes.draw do
     resources :testimonies
   end
 
-  resources :people
-  resources :tags
-  resources :testimonies
-
   get 'people/:id/testimonies' => 'people#user_testimonies', as: :mytestimonies
 
   devise_for :people
@@ -18,6 +14,10 @@ SingaporeStories::Application.routes.draw do
     get '/sign-in' => "devise/sessions#new", :as => :login
     get '/sign-out' => "devise/sessions#destroy", :as => :logout
   end
+
+  resources :people
+  resources :tags
+  resources :testimonies
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

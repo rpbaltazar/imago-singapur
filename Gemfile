@@ -24,6 +24,7 @@ gem 'haml_coffee_assets', git: "https://github.com/netzpirat/haml_coffee_assets"
 gem 'devise'
 
 gem 'paperclip', "~> 4.2"
+gem 'aws-sdk'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby

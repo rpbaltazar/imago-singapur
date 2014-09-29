@@ -49,11 +49,28 @@ class ImagoSingapur.MapManager
       @map.removeLayer @currentMarkerLayer
 
   addEventToLayers: (event) ->
+    console.log 'addEventToLayers'
     geoJsonMarkers = @currentMarkerLayer.getGeoJSON()
     geoJsonMarkers.features.push @_getMarkerFeature(event)
     @currentMarkerLayer.setGeoJSON geoJsonMarkers
 
     @rebuildLine geoJsonMarkers.features
+
+    constellationLayerGeoJSON =
+      type: 'FeatureCollection',
+      features: []
+
+    unless @constellationDotsLayer
+      geoJson = L.geoJson(
+        constellationLayerGeoJSON,
+        {
+          pointToLayer: (feature, latlng) ->
+            L.circleMarker latlng, {radius: feature.properties.count}
+        }
+      )
+
+      @constellationDotsLayer = L.mapbox.featureLayer()
+      @constellationDotsLayer.setGeoJSON geoJson.toGeoJSON()
 
     geoJsonData = @constellationDotsLayer.getGeoJSON()
     geoJsonData.features.push @_getConstellationFeature(event)
@@ -84,47 +101,52 @@ class ImagoSingapur.MapManager
 
   createLayers: (eventList) ->
     self = @
-
-    sortedEventList = _.sortBy eventList, (evt) ->
-      moment evt.story_date
-
-    mLayer = L.mapbox.featureLayer()
-    mLayer.addTo self.map
-    @currentMarkerLayer = mLayer
-
+    console.log 'createLayers'
+    @currentMarkerLayer = L.mapbox.featureLayer()
     markersLayerGeoJSON =
     constellationLayerGeoJSON =
       type: 'FeatureCollection',
       features: []
+    @currentMarkerLayer.setGeoJSON markersLayerGeoJSON
+    @currentMarkerLayer.addTo @map
+
+    sortedEventList = _.sortBy eventList, (evt) ->
+      moment evt.story_date
+
+    # mLayer = L.mapbox.featureLayer()
+    # mLayer.addTo self.map
+    # @currentMarkerLayer = mLayer
+
 
     constellationLine = []
 
     _.each sortedEventList, (evt) ->
-      markersLayerGeoJSON.features.push self._getMarkerFeature(evt)
-      constellationLayerGeoJSON.features.push self._getConstellationFeature(evt)
-      constellationLine.push L.latLng evt.lat, evt.lon
+      self.addEventToLayers evt
+      # markersLayerGeoJSON.features.push self._getMarkerFeature(evt)
+      # constellationLayerGeoJSON.features.push self._getConstellationFeature(evt)
+      # constellationLine.push L.latLng evt.lat, evt.lon
 
-    @constellation = L.polyline constellationLine, @_constellationConfig
+    # @constellation = L.polyline constellationLine, @_constellationConfig
 
-    geoJson = L.geoJson(
-      constellationLayerGeoJSON,
-      {
-        pointToLayer: (feature, latlng) ->
-          console.log feature, latlng
-          L.circleMarker latlng, {radius: feature.properties.count}
-      }
-    )
-
-    @constellationDotsLayer = L.mapbox.featureLayer()
-    @constellationDotsLayer.setGeoJSON geoJson.toGeoJSON()
-
-    mLayer.setGeoJSON markersLayerGeoJSON
-    mLayer.on 'click', (e) ->
-      $.get e.layer.feature.properties.url
-        .success (data) ->
-          self.travelInTime(data)
-        .error (err) ->
-          console.log 'problemo'
+    # geoJson = L.geoJson(
+    #   constellationLayerGeoJSON,
+    #   {
+    #     pointToLayer: (feature, latlng) ->
+    #       console.log feature, latlng
+    #       L.circleMarker latlng, {radius: feature.properties.count}
+    #   }
+    # )
+    #
+    # @constellationDotsLayer = L.mapbox.featureLayer()
+    # @constellationDotsLayer.setGeoJSON geoJson.toGeoJSON()
+    #
+    # mLayer.setGeoJSON markersLayerGeoJSON
+    # mLayer.on 'click', (e) ->
+    #   $.get e.layer.feature.properties.url
+    #     .success (data) ->
+    #       self.travelInTime(data)
+    #     .error (err) ->
+    #       console.log 'problemo'
 
   _getConstellationFeature: (evt) ->
     feature = {

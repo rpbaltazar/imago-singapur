@@ -34,6 +34,9 @@
               %li
                 %a(href="/#/testimonies/map")
                   %i.fa.fa-map-marker
+            %ul.bottom-nav
+              %li
+                %a(href="#{logout_path}") Logout
           .col-md-11#main-container
             = yield
         - else

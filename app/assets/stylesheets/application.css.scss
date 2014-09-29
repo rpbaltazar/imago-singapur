@@ -37,22 +37,39 @@
   vertical-align: top;
 }
 
-#navigation a{
-  margin-top: 0;
-}
+#navigation{
+  a {
+    margin-top: 0;
 
-#navigation a .fa {
-  font-size: 2em;
-}
+    .fa {
+      font-size: 2em;
+    }
+  }
 
-#navigation ul{
-  padding: 0;
-  margin-left: 16px;
-}
+  ul {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    list-style: none;
+    li {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline;
+      list-style-type: none;
+    }
+  }
 
-#navigation ul li{
-  list-style-type: none;
-  padding: 2px;
+  .bottom-nav{
+    position: fixed;
+    bottom: 0px;
+    margin-bottom: 10px;
+  }
 }
 
 #main-container, #container{

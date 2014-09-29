@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140927080350) do
+ActiveRecord::Schema.define(version: 20140929123649) do
 
   create_table "people", force: true do |t|
     t.string   "nickname"
@@ -50,6 +50,10 @@ ActiveRecord::Schema.define(version: 20140927080350) do
     t.datetime "updated_at"
     t.integer  "person_id"
     t.string   "image_url"
+    t.string   "memory_img_file_name"
+    t.string   "memory_img_content_type"
+    t.integer  "memory_img_file_size"
+    t.datetime "memory_img_updated_at"
   end
 
   add_index "testimonies", ["person_id"], name: "index_testimonies_on_person_id"

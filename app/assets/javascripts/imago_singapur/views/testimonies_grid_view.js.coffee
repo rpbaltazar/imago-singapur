@@ -15,6 +15,9 @@ class ImagoSingapur.TestimonyGridView extends Backbone.View
 
   add: (model) ->
     self = @
+    console.log model
     view = new ImagoSingapur.TestimonyGridCellView({model: model})
     $(self.el).append view.render().el
 
+  addNewMemory: ->
+    location

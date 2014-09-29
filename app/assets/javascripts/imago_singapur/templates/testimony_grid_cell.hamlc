@@ -1,3 +1,3 @@
-.col-xs-6.col-md-3
+.imago-thumb
   .thumbnail
-    %img(src="#{@image_url}")
+    %img(src="#{@grid_img}")

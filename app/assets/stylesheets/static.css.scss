@@ -6,3 +6,39 @@
   height: 900px;
   width: 100%;
 }
+
+.empty {
+  height: 250px;
+  width: 250px;
+}
+
+.testimony-cell {
+  .thumbnail {
+    background-color: initial;
+    padding: 0;
+    margin: 2px;
+    border: initial;
+  }
+}
+
+.imago-thumb {
+  position: relative;
+  float: left;
+  padding:0;
+  margin:0;
+  height: 250px;
+  width: 250px;
+}
+
+.dashed-button {
+  border: 1px dotted #ecf0f1;
+  margin-left: 25%;
+  margin-top: 40%;
+  background-color: initial;
+  color: #ecf0f1;
+
+  &:hover {
+    color: #061D28;
+  }
+
+}

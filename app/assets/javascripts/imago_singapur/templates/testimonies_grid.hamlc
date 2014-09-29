@@ -1,4 +1,11 @@
-- _.each @collection, (model) ->
-  .col-xs-6.col-md-3
+.testimony-cell
+  .imago-thumb
     .thumbnail
-      %img(src="#{model.image_url}")
+      .empty
+        %a.btn.btn-default.dashed-button(href="/testimonies/new")
+          %span New Memory
+
+- _.each @collection, (model) ->
+  .imago-thumb
+    .thumbnail
+      %img(src="#{model.get('grid_img')}")

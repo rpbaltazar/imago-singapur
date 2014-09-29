@@ -11,4 +11,14 @@ class ApplicationController < ActionController::Base
     end
     @person = current_person
   end
+
+
+  def authenticate_api_user!
+    if person_signed_in?
+      @person = current_person
+    else
+      #TODO: use token to authenticate users through api
+      redirect_to login_path
+    end
+  end
 end

@@ -1,8 +1,9 @@
 module Api
   class TestimoniesController < ApplicationController
+    before_action :authenticate_api_user!
 
     def index
-      testimonies = Testimony.all
+      testimonies = @person.testimonies
       render json: testimonies.to_json
     end
 

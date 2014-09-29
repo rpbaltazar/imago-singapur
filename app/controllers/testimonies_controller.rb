@@ -32,6 +32,7 @@ class TestimoniesController < ApplicationController
   # POST /testimonies.json
   def create
     @testimony = Testimony.new(testimony_params)
+    @testimony.person = @current_person
 
     respond_to do |format|
       if @testimony.save

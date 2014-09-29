@@ -5,6 +5,10 @@ class ImagoSingapur.Router extends Backbone.Router
     "testimonies/grid": "renderGridView"
 
   renderGridView: ->
+    if Backbone.history.location.pathname != "/" and Backbone.history.fragment == ""
+      console.log "halting routing", Backbone.history.location.pathname, Backbone.history.fragment
+      return
+
     App.Collections.testimonies = new ImagoSingapur.TestimoniesCollection()
     view = new ImagoSingapur.TestimonyGridView(collection: App.Collections.testimonies)
     App.Collections.testimonies.fetch()

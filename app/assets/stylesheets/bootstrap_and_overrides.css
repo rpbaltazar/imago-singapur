@@ -8,6 +8,10 @@
 
 body {
   padding: 0px;
-  background-color: #34495e;
+  background-color: #302F40;
   color: #ecf0f1;
+}
+
+form {
+  color: #2980b9;
 }

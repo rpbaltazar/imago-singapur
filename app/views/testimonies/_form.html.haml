@@ -27,10 +27,10 @@
     = f.label :image_url, :class => 'control-label'
     .controls
       = f.text_field :image_url, :class => 'text_field'
-  .control-group
-    = f.label :person_id, :class => 'control-label'
-    .controls
-      = f.collection_select :person_id, Person.order(:nickname), :id, :nickname, include_blank: true
+  -# .control-group
+  -#   = f.label :person_id, :class => 'control-label'
+  -#   .controls
+  -#     = f.collection_select :person_id, Person.order(:nickname), :id, :nickname, include_blank: true
   .form-actions
     = f.submit 'Save Story', :class => 'btn btn-primary'
     = link_to t('.cancel', :default => t("helpers.links.cancel")), testimonies_path, :class => 'btn'

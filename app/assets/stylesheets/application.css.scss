@@ -12,70 +12,22 @@
  *= require_tree .
  */
 
-#wrapper {
-  display:table;
+$imago-dark-blue: #061D28;
+$imago-white: #ffffff;
+
+#home-nav {
+  background: image-url('navbar/nav-bar-home-resize.png');
+  background-repeat: no-repeat;
+  height: 70px;
   width: 100%;
-  margin: 0;
-  padding: 0;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  margin-top: 10px;
 }
-
-.full-column{
-  height: 100%;
-  display: table-row;
-  margin: 0;
-  padding: 0;
-}
-
-#navigation {
-  display: table-cell;
-  background: #061D28;
-  float: none;
-  width: 70px;
-  padding: 6px;
-  vertical-align: top;
-}
-
-#navigation{
-  a {
-    margin-top: 0;
-
-    .fa {
-      font-size: 2em;
-    }
-  }
-
-  ul {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-    list-style: none;
-    li {
-      margin: 0;
-      padding: 0;
-      border: 0;
-      font-size: 100%;
-      font: inherit;
-      vertical-align: baseline;
-      list-style-type: none;
-    }
-  }
-
-  .bottom-nav{
-    position: fixed;
-    bottom: 0px;
-    margin-bottom: 10px;
-  }
-}
-
-#main-container, #container{
-  float: none;
-  min-height: 960px;
-  margin-top: 20px;
+#profile-nav {
+  background: image-url('navbar/nav-bar-profile-resize.png');
+  background-repeat: no-repeat;
+  height: 30px;
+  width: 100%;
+  margin-top: 10px;
 }
 
 #animated-logo {
@@ -84,4 +36,115 @@
   height: 300px;
   background: image-url('imago.gif');
   background-repeat: no-repeat;
+}
+
+#wrapper {
+  padding-left: 0;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#sidebar-wrapper {
+  z-index: 1000;
+  position: fixed;
+  left: 250px;
+  width: 0;
+  height: 100%;
+  margin-left: -250px;
+  overflow-y: auto;
+  background: $imago-dark-blue;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#page-content-wrapper {
+  width: 100%;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+
+  position: absolute;
+  top: 0;
+  width: 70px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  hr {
+    display: block;
+    border-top: 1px inset white;
+    opacity: 0.2;
+    width: 60px;
+  }
+
+  li {
+    //NOTE: might not be needed
+    //with new icons
+    line-height: 40px;
+
+    a {
+      display: block;
+      text-decoration: none;
+      text-align: center;
+      opacity: 0.4;
+
+      &:hover, &:active, &:focus {
+        opacity: 1;
+      }
+    }
+  }
+
+  .sidebar-brand {
+    .current {
+      opacity: 1;
+    }
+  }
+}
+
+.sidebar-nav-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 70px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    line-height: 40px;
+
+    a {
+      display: block;
+      text-decoration: none;
+      text-align: center;
+      opacity: 0.2;
+      color: $imago-white;
+
+      &:hover, &:active, &:focus {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@media(min-width:768px) {
+  #wrapper {
+    padding-left: 70px;
+  }
+
+  #sidebar-wrapper {
+      width: 70px;
+  }
+
+  #page-content-wrapper {
+  }
+
+  #main-view-container {
+    padding: 0;
+  }
 }

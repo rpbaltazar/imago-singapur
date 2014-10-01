@@ -20,27 +20,38 @@
 
 
   %body
-    #wrapper
-      .full-column
-        - if !current_person.nil?
-          .col-md-1#navigation
-            %ul
-              %li
-                %a(href="#{person_path(current_person)}")
-                  %i.fa.fa-user
-              %li
-                %a(href="/#/testimonies/grid")
-                  %i.fa.fa-th
-              %li
-                %a(href="/#/testimonies/map")
-                  %i.fa.fa-map-marker
-            %ul.bottom-nav
-              %li
-                %a(href="#{logout_path}") Logout
-          .col-md-11#main-container
-            = yield
-        - else
-          .col-md-12#container
-            = yield
+    - if !current_person.nil?
+      #wrapper
+        #sidebar-wrapper
+          %ul.sidebar-nav
+            %li.sidebar-brand
+              %a.current#home-nav(href="/#/")
+            %hr
+            %li
+              %a#profile-nav(href="#{person_path(current_person)}")
+            %li
+              %a(href="/#/testimonies/grid")
+                %i.fa.fa-th
+            %li
+              %a(href="/#/testimonies/map")
+                %i.fa.fa-map-marker
+
+          %ul.sidebar-nav-bottom
+            %li
+
+              %a#logout(href="#{logout_path}") Logout
+
+        #page-content-wrapper
+          .container-fluid
+            .row
+              .col-lg-12#main-view-container
+                = yield
+    - else
+      #wrapper
+        .container-fluid
+          .row
+            .col-lg-12#container
+              = yield
+
 
   %script{:src=>"https://api.tiles.mapbox.com/mapbox.js/v2.1.1/mapbox.js"}

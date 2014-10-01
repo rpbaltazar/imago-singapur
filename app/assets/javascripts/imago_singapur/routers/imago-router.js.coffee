@@ -27,7 +27,7 @@ class ImagoSingapur.Router extends Backbone.Router
       @mainView.remove()
 
     @mainView = view
-    $('#main-container').append(view.render().el)
+    $('#main-view-container').append(view.render().el)
 
     if callback
       callback()

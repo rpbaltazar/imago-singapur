@@ -6,7 +6,6 @@ class ImagoSingapur.TestimonyMapView extends Backbone.View
   mapManager: {}
 
   events:
-    'click #constellation-switch' : 'toggleConstellation'
     'updateConstellationViz': 'render'
 
   initialize: (options) ->
@@ -31,11 +30,11 @@ class ImagoSingapur.TestimonyMapView extends Backbone.View
   add: (model) ->
     @mapManager.addEventToLayers(model.toJSON())
 
-  toggleConstellation: ->
-    if @constellationViz == "Off"
-      @constellationViz = "On"
-    else
-      @constellationViz = "Off"
-
-    @mapManager.toggleConstellation()
-    $('#constellation-switch span').html(@constellationViz)
+  # toggleConstellation: ->
+  #   if @constellationViz == "Off"
+  #     @constellationViz = "On"
+  #   else
+  #     @constellationViz = "Off"
+  #
+  #   @mapManager.toggleConstellation()
+  #   $('#constellation-switch span').html(@constellationViz)

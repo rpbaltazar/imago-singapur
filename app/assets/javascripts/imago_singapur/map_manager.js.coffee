@@ -11,7 +11,6 @@ class ImagoSingapur.MapManager
     @currentLayerYear = 0
     @elId = id
     @currentMarkerLayer
-    @constellationLine = []
     @constellation
 
     @_constellationConfig = {
@@ -20,25 +19,51 @@ class ImagoSingapur.MapManager
       weight: 2,
     }
 
+    @_mapOptions = {
+      attributionControl: false
+      zoomControl: false
+      minZoom: 12
+    }
+    @_mapCenter = [1.332315524375544, 103.82526397705078]
+
   loadMap: ->
     self = @
-    @map = L.mapbox.map(@elId, 'rpbaltazar.jj789eo9').setView(['1.3500', '103.810'], 12)
-
+    @map = L.mapbox.map(@elId, 'rpbaltazar.jj789eo9', @_mapOptions).setView(@_mapCenter, 12)
     @showBlackLayer false
+    @constellationLine = []
+    @_setupEvents()
 
-  toggleConstellation: ->
+  _setupEvents: ->
+    self = @
+    @map.getContainer().querySelector('#constellation').onclick = ->
+      if self._toggleConstellation()
+        @className = 'active'
+        @innerHTML = 'Constellation ON'
+      else
+        @className = ''
+        @innerHTML = 'Constellation OFF'
+
+      return false
+
+  _toggleConstellation: ->
     if !@map.hasLayer @constellation
       @showBlackLayer true
       @showMarkersLayer false
       @constellation.addTo @map
       @constellationDotsLayer.addTo @map
+      return true
     else
       @showMarkersLayer true
       @showBlackLayer false
       @map.removeLayer @constellation
       @map.removeLayer @constellationDotsLayer
+      return false
 
   showBlackLayer: (visible) ->
+    #NOTE: the featureLayers have names
+    #fl.properties.title
+    #that can be set either in mapbox or
+    #tilemille
     @map.featureLayer.setFilter (fl) ->
       visible or fl.geometry.type != 'Polygon'
 
@@ -49,7 +74,6 @@ class ImagoSingapur.MapManager
       @map.removeLayer @currentMarkerLayer
 
   addEventToLayers: (event) ->
-    console.log 'addEventToLayers'
     geoJsonMarkers = @currentMarkerLayer.getGeoJSON()
     geoJsonMarkers.features.push @_getMarkerFeature(event)
     @currentMarkerLayer.setGeoJSON geoJsonMarkers
@@ -90,18 +114,18 @@ class ImagoSingapur.MapManager
     @constellationDotsLayer.addLayer geoJsonFinal
 
   rebuildLine: (features) ->
-    constellationLine= []
+    self = @
+    self.constellationLine= []
     sorted = _.sortBy features, (f) ->
       moment f.properties?.date?
 
     _.each sorted, (f) ->
-      constellationLine.push (L.latLng f.geometry.coordinates[1], f.geometry.coordinates[0])
+      self.constellationLine.push (L.latLng f.geometry.coordinates[1], f.geometry.coordinates[0])
 
-    @constellation = L.polyline constellationLine, @_constellationConfig
+    @constellation = L.polyline self.constellationLine, @_constellationConfig
 
   createLayers: (eventList) ->
     self = @
-    console.log 'createLayers'
     @currentMarkerLayer = L.mapbox.featureLayer()
     markersLayerGeoJSON =
     constellationLayerGeoJSON =
@@ -113,40 +137,8 @@ class ImagoSingapur.MapManager
     sortedEventList = _.sortBy eventList, (evt) ->
       moment evt.story_date
 
-    # mLayer = L.mapbox.featureLayer()
-    # mLayer.addTo self.map
-    # @currentMarkerLayer = mLayer
-
-
-    constellationLine = []
-
     _.each sortedEventList, (evt) ->
       self.addEventToLayers evt
-      # markersLayerGeoJSON.features.push self._getMarkerFeature(evt)
-      # constellationLayerGeoJSON.features.push self._getConstellationFeature(evt)
-      # constellationLine.push L.latLng evt.lat, evt.lon
-
-    # @constellation = L.polyline constellationLine, @_constellationConfig
-
-    # geoJson = L.geoJson(
-    #   constellationLayerGeoJSON,
-    #   {
-    #     pointToLayer: (feature, latlng) ->
-    #       console.log feature, latlng
-    #       L.circleMarker latlng, {radius: feature.properties.count}
-    #   }
-    # )
-    #
-    # @constellationDotsLayer = L.mapbox.featureLayer()
-    # @constellationDotsLayer.setGeoJSON geoJson.toGeoJSON()
-    #
-    # mLayer.setGeoJSON markersLayerGeoJSON
-    # mLayer.on 'click', (e) ->
-    #   $.get e.layer.feature.properties.url
-    #     .success (data) ->
-    #       self.travelInTime(data)
-    #     .error (err) ->
-    #       console.log 'problemo'
 
   _getConstellationFeature: (evt) ->
     feature = {

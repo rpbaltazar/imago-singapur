@@ -137,6 +137,12 @@ class ImagoSingapur.MapManager
   createLayers: (eventList) ->
     self = @
     @currentMarkerLayer = L.mapbox.featureLayer()
+
+    @currentMarkerLayer.on 'layeradd', (e) ->
+      marker = e.layer
+      feature = marker.feature
+      marker.setIcon(L.icon(feature.properties.icon))
+
     markersLayerGeoJSON =
     constellationLayerGeoJSON =
       type: 'FeatureCollection',
@@ -169,9 +175,12 @@ class ImagoSingapur.MapManager
       type: 'Feature'
       properties:
         title: evt.memory,
-        'marker-color': 'ff00aa',
-        'marker-size': 'small',
-        'maker-symbol': 'star',
+        icon: {
+          iconUrl: "#{evt.grid_img}",
+          iconSize: [50, 50],
+          iconAnchor: [25, 56],
+          className: 'map-marker'
+        }
         url: "/api/testimonies/#{evt.id}"
         date: "#{evt.story_date}"
       ,

@@ -5,7 +5,8 @@
         %a.btn.btn-default.dashed-button(href="/testimonies/new")
           %span New Memory
 
-- _.each @collection, (model) ->
-  .imago-thumb
-    .thumbnail
-      %img(src="#{model.get('grid_img')}")
+- _.each @models, (model) ->
+  .testimony-cell
+    .imago-thumb
+      .thumbnail
+        %img(src="#{model.get('grid_img')}")

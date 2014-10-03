@@ -9,10 +9,14 @@ class ImagoSingapur.Router extends Backbone.Router
       console.log "halting routing", Backbone.history.location.pathname, Backbone.history.fragment
       return
 
-    App.Collections.testimonies = new ImagoSingapur.TestimoniesCollection()
+    unless App.Collections.testimonies?.length
+      App.Collections.testimonies = new ImagoSingapur.TestimoniesCollection()
+      App.Collections.testimonies.fetch()
+
     view = new ImagoSingapur.TestimonyGridView(collection: App.Collections.testimonies)
-    App.Collections.testimonies.fetch()
     @_renderMain view
+    @_setActive 'profile-nav'
+
 
   renderMapView: ->
     unless App.Collections.testimonies?.length
@@ -21,6 +25,7 @@ class ImagoSingapur.Router extends Backbone.Router
 
     view = new ImagoSingapur.TestimonyMapView(collection: App.Collections.testimonies)
     @_renderMain view, view.renderMap
+    @_setActive 'map-nav'
 
   _renderMain: (view, callback) ->
     if @mainView?
@@ -31,3 +36,9 @@ class ImagoSingapur.Router extends Backbone.Router
 
     if callback
       callback()
+
+  _setActive: (newActive) ->
+    currActive = $(".current")
+    unless currActive.attr('id') == newActive
+      currActive.removeClass("current")
+      $("#"+newActive).addClass("current")

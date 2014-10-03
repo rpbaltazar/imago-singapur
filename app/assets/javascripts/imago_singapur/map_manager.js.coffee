@@ -32,6 +32,16 @@ class ImagoSingapur.MapManager
     @showBlackLayer false
     @constellationLine = []
     @_setupEvents()
+    @_setMapBounds()
+
+  _setMapBounds: (options) ->
+
+    if !options?
+      mapBounds = @map.getBounds()
+    else
+      console.log 'todo'
+
+    @map.setMaxBounds mapBounds
 
   _setupEvents: ->
     self = @
@@ -185,6 +195,7 @@ class ImagoSingapur.MapManager
   loadYearLayer: (year) ->
     self = @
     return if self.currentLayerYear == year
+    #TODO: use the lib.numberic.closest to load the closest layer
     layer = self._layers[year]
     return unless layerId?
     currentLayer = self._layers[self.currentLayerYear]

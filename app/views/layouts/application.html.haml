@@ -27,18 +27,15 @@
             %li.sidebar-brand
               %a.current#home-nav(href="/#/")
             %hr
+            -# %li
+            -#   %a#profile-nav(href="#{person_path(current_person)}")
             %li
-              %a#profile-nav(href="#{person_path(current_person)}")
+              %a#profile-nav(href="/#/testimonies/grid")
             %li
-              %a(href="/#/testimonies/grid")
-                %i.fa.fa-th
-            %li
-              %a(href="/#/testimonies/map")
-                %i.fa.fa-map-marker
+              %a#map-nav(href="/#/testimonies/map")
 
           %ul.sidebar-nav-bottom
             %li
-
               %a#logout(href="#{logout_path}") Logout
 
         #page-content-wrapper

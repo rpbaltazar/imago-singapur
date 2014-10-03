@@ -10,7 +10,7 @@ class ImagoSingapur.TestimonyGridView extends Backbone.View
 
   render: ->
     self = @
-    $(@el).html( @template(collection: self.collection.toJSON()) )
+    $(@el).html( @template(models: self.collection.models) )
     @
 
   add: (model) ->

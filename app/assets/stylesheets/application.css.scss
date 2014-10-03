@@ -17,18 +17,24 @@ $imago-dark-purple: #3E4358;
 $imago-white: #ffffff;
 
 #home-nav {
-  background: image-url('navbar/nav-bar-home-resize.png');
+  background: image-url('navbar/nav-bar-logo.png');
   background-repeat: no-repeat;
-  height: 70px;
-  width: 100%;
+  height: 75px;
   margin-top: 10px;
+  margin-left: 6px;
+  margin-bottom: -6px;
 }
 #profile-nav {
-  background: image-url('navbar/nav-bar-profile-resize.png');
+  background: image-url('navbar/nav-bar-profile.png');
+  background-repeat: no-repeat;
+  height: 34px;
+  margin-left: 26px;
+}
+#map-nav {
+  background: image-url('navbar/nav-bar-map.png');
   background-repeat: no-repeat;
   height: 30px;
-  width: 100%;
-  margin-top: 10px;
+  margin-left: 22px;
 }
 
 #animated-logo {
@@ -72,7 +78,7 @@ $imago-white: #ffffff;
 
   position: absolute;
   top: 0;
-  width: 70px;
+  width: 90px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -81,7 +87,7 @@ $imago-white: #ffffff;
     display: block;
     border-top: 1px inset white;
     opacity: 0.2;
-    width: 60px;
+    width: 74px;
   }
 
   li {
@@ -95,15 +101,22 @@ $imago-white: #ffffff;
       text-align: center;
       opacity: 0.4;
 
-      &:hover, &:active, &:focus {
+      &:hover, &:active, &:focus, &.current {
         opacity: 1;
       }
+      margin-bottom: 30px;
     }
   }
 
   .sidebar-brand {
-    .current {
-      opacity: 1;
+    li {
+      a {
+        opacity: 1;
+
+        &.current {
+          opacity: 1;
+        }
+      }
     }
   }
 }
@@ -111,7 +124,7 @@ $imago-white: #ffffff;
 .sidebar-nav-bottom {
   position: absolute;
   bottom: 0;
-  width: 70px;
+  width: 90px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -126,7 +139,7 @@ $imago-white: #ffffff;
       opacity: 0.2;
       color: $imago-white;
 
-      &:hover, &:active, &:focus {
+      &:hover, &:active, &:focus, &.current {
         opacity: 1;
       }
     }
@@ -135,11 +148,11 @@ $imago-white: #ffffff;
 
 @media(min-width:768px) {
   #wrapper {
-    padding-left: 70px;
+    padding-left: 90px;
   }
 
   #sidebar-wrapper {
-      width: 70px;
+      width: 90px;
   }
 
   #page-content-wrapper {
@@ -175,7 +188,7 @@ $imago-white: #ffffff;
   text-align: center;
   text-decoration: none;
 
-  &:hover, &:active, &:focus {
+  &:hover, &:active, &:focus, &.current{
     text-decoration: none;
     color: $imago-white;
   }

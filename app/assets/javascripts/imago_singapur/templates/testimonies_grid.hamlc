@@ -3,7 +3,7 @@
     .thumbnail
       .empty
         %a.btn.btn-default.dashed-button(href="/testimonies/new")
-          %span New Memory
+          %span new memory
 
 - _.each @models, (model) ->
   .testimony-cell

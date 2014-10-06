@@ -236,6 +236,10 @@ $imago-white: #ffffff;
   top: 0;
   left: 0;
   z-index: -10;
+  margin: 2px;
+  img {
+    max-width: 100%;
+  }
 }
 
 #story-container {

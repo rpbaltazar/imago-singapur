@@ -18,6 +18,12 @@ module Api
     end
 
     def get_surrounding_testimonies(testimony)
+
+      # dt = DateTime.new(year)
+      # boy = dt.beginning_of_year
+      # eoy = dt.end_of_year
+      # where("published_at >= ? and published_at <= ?", boy, eoy)
+
       time_nearby_testimonies = Testimony.where 'extract(year from story_date) = ? AND id != ?', "#{testimony.story_date.year}", testimony.id
       # time_nearby_testimonies = Testimony.where "strftime('%Y', story_date) = ? AND id != ?", "#{testimony.story_date.year}", testimony.id
       time_nearby_testimonies.each do |t|

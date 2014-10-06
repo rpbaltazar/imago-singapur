@@ -1,4 +1,10 @@
 #story-container
+  %img#background-picture
+  .row
+    .col-md-1
+      Back
+    .col-md-1.col-md-offset-10
+      See picture
   %hr.story-separator
   %h2.story-title school days
   %h5.story-date 12 sept 2009

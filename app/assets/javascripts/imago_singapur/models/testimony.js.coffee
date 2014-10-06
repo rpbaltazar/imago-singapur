@@ -17,11 +17,6 @@ class ImagoSingapur.Testimony extends Backbone.Model
     lon = @.get('lon')
 
     if !closestMapYear?
-      @.set 'static_map', "http://api.tiles.mapbox.com/v4/rpbaltazar.jj789eo9/pin-s-bus+f44(#{lon},#{lat},16)/#{lon},#{lat},14/250x250.png?access_token=pk.eyJ1IjoicnBiYWx0YXphciIsImEiOiJEQlJyLVVJIn0.yaCOoWv9RzeJ8ZlkfOmoxg"
+      @.set 'static_map', "http://api.tiles.mapbox.com/v4/rpbaltazar.jj789eo9/pin-s-marker+f44(#{lon},#{lat},16)/#{lon},#{lat},14/250x250.png?access_token=pk.eyJ1IjoicnBiYWx0YXphciIsImEiOiJEQlJyLVVJIn0.yaCOoWv9RzeJ8ZlkfOmoxg"
     else
-      @.set 'static_map', "http://api.tiles.mapbox.com/v4/rpbaltazar.singapore-#{closestMapYear}/pin-s-bus+f44(#{lon},#{lat},16)/#{lon},#{lat},14/250x250.png?access_token=pk.eyJ1IjoicnBiYWx0YXphciIsImEiOiJEQlJyLVVJIn0.yaCOoWv9RzeJ8ZlkfOmoxg"
-
-
-# 1.306225, 103.828728
-#
-# 1.35514,103.952551
+      @.set 'static_map', "http://api.tiles.mapbox.com/v4/rpbaltazar.singapore-#{closestMapYear}/pin-s-marker+f44(#{lon},#{lat},16)/#{lon},#{lat},14/250x250.png?access_token=pk.eyJ1IjoicnBiYWx0YXphciIsImEiOiJEQlJyLVVJIn0.yaCOoWv9RzeJ8ZlkfOmoxg"

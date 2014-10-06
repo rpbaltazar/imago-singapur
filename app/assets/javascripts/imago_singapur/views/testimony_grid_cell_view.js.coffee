@@ -2,6 +2,8 @@ class ImagoSingapur.TestimonyGridCellView extends Backbone.View
 
   events:
     'click .imago-thumb': 'showStory'
+    'mouseenter .imago-thumb': 'showInfo'
+    'mouseleave .imago-thumb': 'hideInfo'
 
   attributes : ->
     {
@@ -17,5 +19,8 @@ class ImagoSingapur.TestimonyGridCellView extends Backbone.View
   showStory: (ev) ->
     App.router.navigate "testimony/#{@model.id}", trigger: true
 
+  showInfo: (ev) ->
+    $(ev.currentTarget).find(".thumbnail").fadeOut()
 
-
+  hideInfo: (ev) ->
+    $(ev.currentTarget).find(".thumbnail").fadeIn()

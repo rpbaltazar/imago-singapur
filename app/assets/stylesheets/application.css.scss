@@ -224,3 +224,20 @@ $imago-white: #ffffff;
     height: 40px;
   }
 }
+
+.thumbnail-map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -10;
+}
+
+#story-container {
+  margin-top: 60px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.story-separator {
+  margin-bottom: 40px;
+}

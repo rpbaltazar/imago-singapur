@@ -1,3 +1,5 @@
 .imago-thumb
   .thumbnail
     %img(src="#{@grid_img}")
+  .thumbnail-map
+    %img(src="#{@static_map}")

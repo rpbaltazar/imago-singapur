@@ -15,10 +15,22 @@ class ImagoSingapur.Testimony extends Backbone.Model
     keys = Object.keys ImagoSingapur.Lib.Dictionaries.MapIndexes
     keysInt = _.map keys, (k) -> Number k
     closestMapYear = ImagoSingapur.Lib.Numeric.findClosestInteger(year, keysInt, 'negative' )
+
+    if !closestMapYear?
+      @.set 'static_map', @getStaticMap()
+    else
+      options =
+        map: "rpbaltazar.singapore-#{closestMapYear}"
+      @.set 'static_map', @getStaticMap(options)
+
+  getStaticMap: (options={}) ->
     lat = @.get('lat')
     lon = @.get('lon')
 
-    if !closestMapYear?
-      @.set 'static_map', "http://api.tiles.mapbox.com/v4/rpbaltazar.jj789eo9/pin-s-marker+f44(#{lon},#{lat},16)/#{lon},#{lat},14/250x250.png?access_token=pk.eyJ1IjoicnBiYWx0YXphciIsImEiOiJEQlJyLVVJIn0.yaCOoWv9RzeJ8ZlkfOmoxg"
-    else
-      @.set 'static_map', "http://api.tiles.mapbox.com/v4/rpbaltazar.singapore-#{closestMapYear}/pin-s-marker+f44(#{lon},#{lat},16)/#{lon},#{lat},14/250x250.png?access_token=pk.eyJ1IjoicnBiYWx0YXphciIsImEiOiJEQlJyLVVJIn0.yaCOoWv9RzeJ8ZlkfOmoxg"
+    options.marker ||= 'pin-s-marker'
+    options.width ||= 250
+    options.height ||= 250
+    options.map ||= 'rpbaltazar.jj789eo9'
+
+    url = "http://api.tiles.mapbox.com/v4/#{options.map}/#{options.marker}+f44(#{lon},#{lat},16)/#{lon},#{lat},14/#{options.width}x#{options.height}.png?access_token=pk.eyJ1IjoicnBiYWx0YXphciIsImEiOiJEQlJyLVVJIn0.yaCOoWv9RzeJ8ZlkfOmoxg"
+    url

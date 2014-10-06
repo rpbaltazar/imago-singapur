@@ -3,7 +3,7 @@ module Api
     before_action :authenticate_api_user!
 
     def index
-      testimonies = @person.testimonies
+      testimonies = @person.testimonies.order('story_date ASC')
       testimonies.each do |t|
         t.visible = true
       end
@@ -16,7 +16,6 @@ module Api
       res = {testimony: testimony, nearby: time_nearby_testimonies}
       render :json => res.to_json
     end
-
 
     def get_surrounding_testimonies(testimony)
       time_nearby_testimonies = Testimony.where "strftime('%Y', story_date) = ? AND id != ?", "#{testimony.story_date.year}", testimony.id

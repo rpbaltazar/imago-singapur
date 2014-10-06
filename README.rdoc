@@ -3,3 +3,7 @@
 Converting tif shape files:
 
 gdalwarp -s_srs EPSG:4326 -t_srs EPSG:3857 <source> <destination>
+
+Zoom: 11-17
+Center: 1.3581, 103.852
+Bounds: 103.5807,1.1583, 104.1225,1.5365

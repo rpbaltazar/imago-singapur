@@ -4,12 +4,27 @@ module Api
 
     def index
       testimonies = @person.testimonies
+      testimonies.each do |t|
+        t.visible = true
+      end
       render json: testimonies.to_json
     end
 
     def show
       testimony = Testimony.find params[:id]
-      render :json => testimony.to_json
+      time_nearby_testimonies = get_surrounding_testimonies testimony
+      res = {testimony: testimony, nearby: time_nearby_testimonies}
+      render :json => res.to_json
+    end
+
+
+    def get_surrounding_testimonies(testimony)
+      time_nearby_testimonies = Testimony.where "strftime('%Y', story_date) = ? AND id != ?", "#{testimony.story_date.year}", testimony.id
+      time_nearby_testimonies.each do |t|
+        friends_ids = (@person.friends).map(&:id)
+        p @person.id
+        t.visible = ( (t.person.id == @person.id) || (friends_ids.include?t.person.id))
+      end
     end
 
   end

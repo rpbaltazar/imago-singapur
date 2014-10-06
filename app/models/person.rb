@@ -4,4 +4,8 @@ class Person < ActiveRecord::Base
          :recoverable, :rememberable, :trackable
 
   has_many :testimonies
+
+  has_many :friendships
+  has_many :friends, :through => :friendships, :source => :friend_person
+
 end

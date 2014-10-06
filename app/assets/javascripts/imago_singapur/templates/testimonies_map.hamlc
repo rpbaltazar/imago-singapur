@@ -1,3 +1,6 @@
 #testimonies-map
   %nav.menu-ui
     %a#constellation(href="#") Constellation OFF
+
+  #year-indicator Current map
+    %span 2004

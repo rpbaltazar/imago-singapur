@@ -4,6 +4,7 @@ class ImagoSingapur.MapManager
     @_layers = {
       # TODO: redo the layers exporting with zoom from 12 to 18
       # current: L.mapbox.tileLayer 'rpbaltazar.jj789eo9'
+      1969: L.mapbox.tileLayer 'rpbaltazar.singapore-1969'
       1993: L.mapbox.tileLayer 'rpbaltazar.singapore-1993'
       2000: L.mapbox.tileLayer 'rpbaltazar.singapore-2000'
     }
@@ -25,6 +26,23 @@ class ImagoSingapur.MapManager
       minZoom: 12
     }
     @_mapCenter = [1.332315524375544, 103.82526397705078]
+
+    @nearbyMarkersLayer = L.mapbox.featureLayer()
+    @nearbyMarkersLayer.on 'layeradd', (e) ->
+      marker = e.layer
+      feature = marker.feature
+      if feature.properties.visible
+        icon = L.divIcon(
+          html:"<div class='map-marker'> <img src='#{feature.properties.image}'></div>",
+          iconSize: new L.Point(50, 50)
+        )
+      else
+        icon = L.divIcon(
+          html:"<div class='map-marker'> <p> Start a chat </p> </div>",
+          iconSize: new L.Point(60, 60)
+        )
+
+      marker.setIcon(icon)
 
   loadMap: ->
     self = @
@@ -141,7 +159,20 @@ class ImagoSingapur.MapManager
     @currentMarkerLayer.on 'layeradd', (e) ->
       marker = e.layer
       feature = marker.feature
+      # if feature.properties.visible
       marker.setIcon(L.icon(feature.properties.icon))
+
+    @currentMarkerLayer.on 'click', (e) ->
+      e.originalEvent.preventDefault()
+      $.get e.layer.feature.properties.url
+        .success (data) ->
+          currTestimony = data['testimony']
+          surroundingTestimonies = data['nearby']
+          self.travelInTime currTestimony
+          self._populateNearby surroundingTestimonies
+
+        .error (err) ->
+          console.log 'problemo'
 
     markersLayerGeoJSON =
     constellationLayerGeoJSON =
@@ -155,6 +186,26 @@ class ImagoSingapur.MapManager
 
     _.each sortedEventList, (evt) ->
       self.addEventToLayers evt
+
+  _populateNearby: (testimoniesList) ->
+    self = @
+
+    unless @nearbyMarkersLayer
+      @nearbyMarkersLayer = L.mapbox.featureLayer()
+
+    if @map.hasLayer @nearbyMarkersLayer
+      @map.removeLayer @nearbyMarkersLayer
+
+    geoJSON =
+      type: 'FeatureCollection',
+      features: []
+
+    _.each testimoniesList, (evt) ->
+      geoJSON.features.push self._getMarkerFeature evt
+
+    @nearbyMarkersLayer.setGeoJSON geoJSON
+    @nearbyMarkersLayer.addTo @map
+
 
   _getConstellationFeature: (evt) ->
     feature = {
@@ -174,15 +225,15 @@ class ImagoSingapur.MapManager
     feature = {
       type: 'Feature'
       properties:
-        title: evt.memory,
         icon: {
-          iconUrl: "#{evt.grid_img}",
           iconSize: [50, 50],
           iconAnchor: [25, 56],
           className: 'map-marker'
         }
         url: "/api/testimonies/#{evt.id}"
+        image: "#{evt.grid_img}"
         date: "#{evt.story_date}"
+        visible: evt.visible
       ,
       geometry:
         type: 'Point',
@@ -191,6 +242,11 @@ class ImagoSingapur.MapManager
           evt.lat
         ]
     }
+
+    console.log 'visible: ?', evt.visible
+
+    if evt.visible
+      feature.properties.icon.iconUrl = "#{evt.grid_img}"
 
     feature
 
@@ -203,16 +259,21 @@ class ImagoSingapur.MapManager
 
   loadYearLayer: (year) ->
     self = @
-    return if self.currentLayerYear == year
-    #TODO: use the lib.numberic.closest to load the closest layer
-    layer = self._layers[year]
-    return unless layerId?
+
+    keys = Object.keys @_layers
+    keysInt = _.map keys, (k) -> Number k
+    closestMapYear = ImagoSingapur.Lib.Numeric.findClosestInteger(year, keysInt, 'negative' )
+    return if self.currentLayerYear == closestMapYear
+
+    console.log 'event year: ', year
+    console.log 'closestMapYear: ', closestMapYear
+    layer = self._layers[closestMapYear]
     currentLayer = self._layers[self.currentLayerYear]
     if self.map.hasLayer currentLayer
       self.map.removeLayer currentLayer
 
     layer.addTo self.map
-    self.currentLayerYear = year
+    self.currentLayerYear = closestMapYear
 
   zoomAndCenter: (event) ->
     latlng = L.latLng event.lat, event.lon

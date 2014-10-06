@@ -5,6 +5,7 @@ class ImagoSingapur.MapManager
       # TODO: redo the layers exporting with zoom from 12 to 18
       # current: L.mapbox.tileLayer 'rpbaltazar.jj789eo9'
       1969: L.mapbox.tileLayer 'rpbaltazar.singapore-1969'
+      1975: L.mapbox.tileLayer 'rpbaltazar.singapore-1975'
       1993: L.mapbox.tileLayer 'rpbaltazar.singapore-1993'
       2000: L.mapbox.tileLayer 'rpbaltazar.singapore-2000'
     }

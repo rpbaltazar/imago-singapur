@@ -3,7 +3,7 @@ module Api
     before_action :authenticate_api_user!
 
     def index
-      testimonies = @person.testimonies.order('story_date ASC')
+      testimonies = @person.testimonies.order('story_date DESC')
       testimonies.each do |t|
         t.visible = true
       end

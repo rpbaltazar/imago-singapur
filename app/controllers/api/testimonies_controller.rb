@@ -18,7 +18,8 @@ module Api
     end
 
     def get_surrounding_testimonies(testimony)
-      time_nearby_testimonies = Testimony.where "strftime('%Y', story_date) = ? AND id != ?", "#{testimony.story_date.year}", testimony.id
+      time_nearby_testimonies = Testimony.where 'extract(year from story_date) = ? AND id != ?', "#{testimony.story_date.year}", testimony.id
+      # time_nearby_testimonies = Testimony.where "strftime('%Y', story_date) = ? AND id != ?", "#{testimony.story_date.year}", testimony.id
       time_nearby_testimonies.each do |t|
         friends_ids = (@person.friends).map(&:id)
         p @person.id

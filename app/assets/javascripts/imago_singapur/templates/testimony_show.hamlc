@@ -9,12 +9,14 @@
     %hr.story-separator
 
   .row
-    .col-md-6.story-title = "#{@story_title}"
+    .col-md-6.story-title = "#{@title}"
     .col-md-2.story-date = "#{@story_date.format('MMMM YYYY')}"
   .row
-    .col-md-6.story-headline = "#{@story_headline}"
+    .col-md-6.story-headline = "#{@headline}"
   .row
-    .col-md-4.col-md-offset-8.story-location= "#{@story_headline}"
+    .col-md-4.col-md-offset-8.story-location
+      #location-title Where
+      #location= "#{@location}"
   .row
     .col-md-6#story-description
       ="#{@memory}"

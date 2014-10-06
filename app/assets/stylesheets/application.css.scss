@@ -12,6 +12,12 @@
  *= require_tree .
  */
 
+
+@font-face{
+  font-family: Brandon;
+  src: url(#{asset_path('fonts/Brandon_reg.otf')})
+}
+
 $imago-dark-blue: #061D28;
 $imago-dark-purple: #3E4358;
 $imago-white: #ffffff;
@@ -240,4 +246,27 @@ $imago-white: #ffffff;
 
 .story-separator {
   margin-bottom: 40px;
+}
+
+.story-date {
+  text-transform: uppercase;
+  text-size: 13px;
+}
+
+.story-title {
+  text-size: 20px;
+  text-transform: uppercase;
+}
+
+.story-location {
+  font-size: 12px;
+
+  #location-title {
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  #location {
+    margin-bottom: 10px;
+  }
 }

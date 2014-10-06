@@ -14,8 +14,8 @@
 
 
 @font-face{
-  font-family: Brandon;
-  src: url(#{asset_path('fonts/Brandon_reg.otf')})
+  font-family: 'Brandon';
+  src: font-url('Brandon_reg.otf') format("opentype");
 }
 
 $imago-dark-blue: #061D28;

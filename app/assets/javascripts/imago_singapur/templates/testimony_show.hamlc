@@ -5,18 +5,22 @@
       Back
     .col-md-1.col-md-offset-10
       See picture
-  %hr.story-separator
-  %h2.story-title school days
-  %h5.story-date 12 sept 2009
-  %h4.story-headline great days adnaksflnsflk
-  #story-description
-    lksdlksdlkslkslks
-    slknsdlksdlkdsgkmdfn,df
-    dfglkndflknsdl'knglknb
-    w'wr'owtn'owithn
-    htw'wrt'opiwtg'poiwt'pjwh
-    wtohnwtgjqp
-    gj
-    p
+  .row
+    %hr.story-separator
 
-  %hr.story-separator
+  .row
+    .col-md-6.story-title = "#{@story_title}"
+    .col-md-2.story-date = "#{@story_date.format('MMMM YYYY')}"
+  .row
+    .col-md-6.story-headline = "#{@story_headline}"
+  .row
+    .col-md-4.col-md-offset-8.story-location= "#{@story_headline}"
+  .row
+    .col-md-6#story-description
+      ="#{@memory}"
+    .col-md-4.col-md-offset-2
+      #map
+      #network
+
+  .row
+    %hr.story-separator

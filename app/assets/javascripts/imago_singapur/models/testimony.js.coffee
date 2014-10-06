@@ -9,7 +9,9 @@ class ImagoSingapur.Testimony extends Backbone.Model
     static_map: "http://api.tiles.mapbox.com/v4/{mapid}/{markers}/{lon},{lat},{z}/{width}x{height}.{format}?access_token=<your access token>"
 
   initialize: ->
-    year = moment(@.get('story_date')).year()
+
+    @.set 'story_date', moment(@.get('story_date'))
+    year = @.get('story_date').year()
     keys = Object.keys ImagoSingapur.Lib.Dictionaries.MapIndexes
     keysInt = _.map keys, (k) -> Number k
     closestMapYear = ImagoSingapur.Lib.Numeric.findClosestInteger(year, keysInt, 'negative' )
